@@ -11,8 +11,8 @@ from datetime import datetime
 os.environ['FLASK_APP'] = "app.py"
 
 # UNCOMMENT 2 LINES BELOW ON LOCALHOST
-os.environ['DATABASE_URL'] = "postgresql:///mms"
-os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
+# os.environ['DATABASE_URL'] = "postgresql:///mms"
+# os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['csv'])
@@ -25,7 +25,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 now = datetime.now()
-
+ 
 site = {
     'name': 'ICTLife MMS',
     'errors': [] 
@@ -74,7 +74,9 @@ def create_category():
 @app.route("/create/contribution", methods=['GET', 'POST'])
 def create_contribution():
     if request.method == 'GET':
-        return render_template("create_contribution.html", now=now, site=site)
+        years = ['2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007']
+        months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December']
+        return render_template("create_contribution.html", now=now, site=site, months=months, years=years)
     year = request.form.get('year')
     month = request.form.get('month')
     if 'file' not in request.files:

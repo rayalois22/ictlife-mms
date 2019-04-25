@@ -9,18 +9,18 @@
                     <label for="year">Year:</label>
                     <select name="year" id="year" required>
                         <option value="" disabled selected>--SELECT A YEAR--</option>
-                        <option value="2019">2019</option>
-                        <option value="2018">2018</option>
-                        <option value="2017">2017</option>
+                        {% for r in years %}
+                            <option value="{{ r }}">{{ r }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="form-input">
                     <label for="month">Month:</label>
                     <select name="month" id="month" required>
                         <option value="" disabled selected>--SELECT A MONTH--</option>
-                        <option value="1">January</option>
-                        <option value="2">February</option>
-                        <option value="3">March</option>
+                        {% for r in months %}
+                            <option value="{{ loop.index }}">{{ r }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="form-input">
