@@ -7,13 +7,12 @@ import re
 from datetime import datetime
 # from validate_email import validate_email
 
-# export APP_SETTINGS="config.DevelopmentConfig"
-# export DATABASE_URL="postgresql://localhost/books_store"
-
 # Sets the environment variables
 os.environ['FLASK_APP'] = "app.py"
-os.environ['DATABASE_URL'] = "postgresql:///mms"
-os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
+
+# UNCOMMENT 2 LINES BELOW ON LOCALHOST
+# os.environ['DATABASE_URL'] = "postgresql:///mms"
+# os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['csv'])
