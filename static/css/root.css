@@ -192,3 +192,13 @@ table {
     padding: 10px 20px;
     font-size: 0.8em;
 }
+
+.actions {
+    list-style-type: none;
+    display: flex;
+    padding: 5px 5px;
+}
+
+.actions li {
+    margin: 0px 7px;
+}
