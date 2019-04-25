@@ -152,7 +152,7 @@ def edit_invalid_contribution(id_):
     return render_template('index.html', now=now, site=site, invalid_records=invalid_records)
 
 @app.route("/invalid-record/del/<id_>")
-def edit_invalid_contribution(id_):
+def delete_invalid_contribution(id_):
     site["errors"].append(f"This functionality will be availble soon")
     invalid_records = get_invalid_contributions()
     return render_template('index.html', now=now, site=site, invalid_records=invalid_records)
