@@ -44,7 +44,7 @@
                     </tbody>
                 </table>
             </div>
-        {% else records|length < 1 and invalid_records < 1 %}
+        {% else records|length < 1 and invalid_records|length < 1 %}
             <div class="title">No valid records found</div>
         {% endif %}    
         
