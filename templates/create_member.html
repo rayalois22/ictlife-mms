@@ -21,10 +21,9 @@
                     <label for="category">Category:</label>
                     <select name="category" id="category" required>
                         <option value="" disabled selected>-- SELECT A CATEGORY --</option>
-                        <option value="1">Basic</option>
-                        <option value="2">Affiliate</option>
-                        <option value="3">Associate</option>
-                        <option value="4">Fellow</option>
+                        {% for r in categories %}
+                            <option value="{{ r.id }}">{{ r.name|upper }}</option>
+                        {% endfor %}
                     </select>
                 </div>
                 <div class="form-input">

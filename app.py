@@ -11,8 +11,8 @@ from datetime import datetime
 os.environ['FLASK_APP'] = "app.py"
 
 # UNCOMMENT 2 LINES BELOW ON LOCALHOST
-# os.environ['DATABASE_URL'] = "postgresql:///mms"
-# os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
+os.environ['DATABASE_URL'] = "postgresql:///mms"
+os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['csv'])
@@ -43,7 +43,8 @@ def index():
 @app.route("/create/member", methods=['GET', 'POST'])
 def create_member():
     if request.method == 'GET':
-        return render_template("create_member.html", now=now, site=site)
+        categories = get_categories()
+        return render_template("create_member.html", now=now, site=site, categories=categories)
     first_name = request.form.get('first_name')
     other_names = request.form.get('other_names')
     email = request.form.get('email')
@@ -140,12 +141,6 @@ def mark_as_paid(email):
     site["errors"].append(f"That funtionality will be added soon")
     return render_template('index.html', now=now, site=site)
 
-@app.route("/details")
-def get_book_details():
-    author=request.args.get('author')
-    published=request.args.get('published')
-    return "Author : {}, Published: {}".format(author,published)
-
 @app.route('/upload/csv', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
@@ -190,6 +185,14 @@ def get_invalid_contributions():
     try:
         invalid_contributions = Contribution.query.all()
         return invalid_contributions
+    except Exception as e:
+        site['errors'].append(str(e))
+        return False
+
+def get_categories():
+    try:
+        categories = Category.query.all()
+        return categories
     except Exception as e:
         site['errors'].append(str(e))
         return False
