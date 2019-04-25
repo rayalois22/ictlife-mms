@@ -8,6 +8,9 @@
 {% endif %}
 
 {% block content %}
+    <ul class="links">
+        <li><a href="/invalid-records">View Invalid Records</a></li>
+    </ul>
     <div class="records">
         {% if records|length > 0 %}
             <div class="title">Records</div>
@@ -43,6 +46,41 @@
             </div>
         {% else %}
             <div class="title">No valid records found</div>
-        {% endif %}       
+        {% endif %}    
+        
+        {% if invalid_records|length > 0 %}
+            <div class="title">Invalid Records</div>
+            <div class="body">
+                <table id="records" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Year</th>
+                            <th>Month</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in invalid_records %}
+                            <tr>
+                                <td>{{ r.email }}</td>
+                                <td>{{ r.year }}</td>
+                                <td>{{ r.month }}</td>
+                                <td>{{ r.amount }}</td>
+                                <td>
+                                    <ul class="actions">
+                                        <li><a href="/invalid-record/edit/{{ r.id }}">Edit</a></li>
+                                        <li><a href="/invalid-record/del/{{ r.id }}">Delete</a></li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="title">Hooray! No invalid records found</div>
+        {% endif %}    
     </div> 
 {% endblock %}

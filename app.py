@@ -53,7 +53,9 @@ def create_member():
         member = Member(first_name, other_names, email, category)
         db.session.add(member)
         db.session.commit()
-        return f"Member created. Member id = {member.id}"
+        valid_records = get_valid_contributions()
+        site["errors"].append(f"Success. Member added with id = {member.id}")
+        return render_template('index.html', now=now, site=site, records=valid_records)
     except Exception as e:
         return str(e)
 
@@ -137,6 +139,23 @@ def create_contribution():
             return render_template('index.html', now=now, site=site)
     site['errors'].append('Invalid file type.')
     return render_template('create_contribution.html', now=now, site=site)
+
+@app.route("/invalid-records")
+def invalid_records():
+    invalid_contributions = get_invalid_contributions()
+    return render_template('index.html', now=now, site=site, invalid_records=invalid_contributions)
+
+@app.route("/invalid-record/edit/<id_>")
+def edit_invalid_contribution(id_):
+    site["errors"].append(f"This functionality will be availble soon")
+    invalid_records = get_invalid_contributions()
+    return render_template('index.html', now=now, site=site, invalid_records=invalid_records)
+
+@app.route("/invalid-record/del/<id_>")
+def edit_invalid_contribution(id_):
+    site["errors"].append(f"This functionality will be availble soon")
+    invalid_records = get_invalid_contributions()
+    return render_template('index.html', now=now, site=site, invalid_records=invalid_records)
 
 @app.route("/markaspaid/<email_>")
 def mark_as_paid(email_):
