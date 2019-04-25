@@ -1,0 +1,57 @@
+﻿ICTLife FullStack Challenge Part 2:
+
+
+The following open-ended questions should be answered in essay form. They are not
+meant to be implemented.
+
+
+1. Which specifications were you unable to address in your submitted application?
+
+
+Due to time constraints, I was unable to complete the functionality to allow users to mark records as paid.
+I did not document all areas of my code.
+Also, the application is not mobile-first and is only optimized for laptops and desktops.
+
+
+2. If you had more time, how would you improve your application?
+
+
+Given more time, I would implement all the requested functionality and add more stringent server-side validation.
+I would add a Cross-Site Request Forgery CSRF token to all forms and validate on the server side to enhance security of the application.
+I would also employ the use of AJAX to provide real-time communication with the server and thereby boost user experience by adding such features as autocomplete suggestions.
+With more time, I would have employed a mobile first approach to make the application more responsive.
+I would document areas of the code that I feel need some more explanation.
+I would write tests for the different endpoints of the application and leverage on the comments to generate both a technical and user manual for the system.
+
+
+3. In the MVP, the organization just wanted a mark as paid button to indicate
+whether a member has paid his monthly dues or not. Assume the organization
+wanted to give members the flexibility to pay the dues in multiple payments.
+
+
+a. How you modify the schema of the database to allow split payments for
+the monthly dues?
+
+
+I would add a new table to the database with foreign keys from the base tables to store the multiple payment information such as: unique_id, parent_record, amount, date_of_payment.
+In this case, parent_id would be a foreign key constraint from the parent table containing the valid records. I would use the unique_id in combination with the foreign key constraint to track individual payments.
+
+
+b. How you modify the user interface to allow split payments for the monthly
+Dues?
+
+
+On the home page, I would remove the mark as paid button and instead add a “Make Payment” button to allow the user to add multiple payments until the due amount is fully settled, upon which the system will disable the “Make Payment” button for records whose monthly dues have been fully settled.
+
+
+4. Which part of the assignment did you enjoy the most?
+
+
+I enjoyed designing and implementing the database and writing the controller logic to determine how the application interacts with the database. That’s the part I enjoyed the most.
+Designing the layout with CSS flexbox also proved quite interesting.
+
+
+5. Which part of the assignment did you enjoy the least?
+
+
+Honestly speaking, I didn’t find anything disinteresting. The part that took me the most time was writing the CSS, though I enjoyed it.
