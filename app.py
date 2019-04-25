@@ -144,7 +144,7 @@ def mark_as_paid(email_):
         valid_contribution = ValidContribution.query.filter_by(email=email_).first()
         valid_contribution.paid = True
         db.session.add(valid_contribution)
-        db.commit()
+        db.session.commit()
         site["errors"].append(f"Success. {valid_contribution.email} marked as paid.")
     except Exception as e:
         site["errors"].append(f"Failed. {str(e)}")
