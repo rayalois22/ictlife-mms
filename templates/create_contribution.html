@@ -1,0 +1,36 @@
+{% extends "root.html" %}
+
+{% block content %}
+    <div class="create-category">
+        <div class="form-wrapper">
+            <h3 class="title">upload new contributions</h3>
+            <form action="/create/contribution" class="form" method="POST" enctype="multipart/form-data">
+                <div class="form-input">
+                    <label for="year">Year:</label>
+                    <select name="year" id="year" required>
+                        <option value="" disabled selected>--SELECT A YEAR--</option>
+                        <option value="2019">2019</option>
+                        <option value="2018">2018</option>
+                        <option value="2017">2017</option>
+                    </select>
+                </div>
+                <div class="form-input">
+                    <label for="month">Month:</label>
+                    <select name="month" id="month" required>
+                        <option value="" disabled selected>--SELECT A MONTH--</option>
+                        <option value="1">January</option>
+                        <option value="2">February</option>
+                        <option value="3">March</option>
+                    </select>
+                </div>
+                <div class="form-input">
+                    <label for="file">Contribution file:</label>
+                    <input type="file" id="file" name="file" required>
+                </div>
+                <div class="form-input">
+                    <input type="submit" value="CREATE" name="submit-create-contribution">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

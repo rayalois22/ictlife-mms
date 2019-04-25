@@ -1,0 +1,15 @@
+{% extends "root.html" %} 
+
+{% block content %}
+    <form action="/upload/csv" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="email">Email address:</label>
+          <input type="email" name="email" class="form-control" id="email">
+        </div>
+        <div class="form-group">
+          <label for="upload">File: </label>
+          <input type="file" name="upload" class="form-control" id="upload" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form> 
+{% endblock %}

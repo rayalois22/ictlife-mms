@@ -1,0 +1,48 @@
+{% extends 'root.html' %}
+
+{% if records|length > 0 %}
+    {% block head %}
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    {% endblock head %}
+{% endif %}
+
+{% block content %}
+    <div class="records">
+        {% if records|length > 0 %}
+            <div class="title">Records</div>
+            <div class="body">
+                <table id="records" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Email</th>
+                            <th>Year</th>
+                            <th>Month</th>
+                            <th>Amount</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in records %}
+                            <tr>
+                                <td>{{ r.email }}</td>
+                                <td>{{ r.year }}</td>
+                                <td>{{ r.month }}</td>
+                                <td>{{ r.amount }}</td>
+                                <td>
+                                    {% if not r.paid %}
+                                        <form action="/markaspaid/{{ r.email }}" method="post">
+                                            <input type="submit" value="Mark as Paid" name="paid-{{ r.email }}">
+                                        </form>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <div class="title">No valid records found</div>
+        {% endif %}       
+    </div> 
+{% endblock %}

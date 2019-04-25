@@ -1,0 +1,36 @@
+{% extends "root.html" %}
+
+{% block content %}
+    <div class="create-member">
+        <div class="form-wrapper">
+            <h3 class="title">create new member</h3>
+            <form action="/create/member" class="form" method="POST">
+                <div class="form-input">
+                    <label for="fname">First name:</label>
+                    <input type="text" id="fname" name="first_name" placeholder="John" required>
+                </div>
+                <div class="form-input">
+                    <label for="onames">Other names:</label>
+                    <input type="text" id="onames" name="other_names" placeholder="Doe" required>
+                </div>
+                <div class="form-input">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="johndoe@example.com" required>
+                </div>
+                <div class="form-input">
+                    <label for="category">Category:</label>
+                    <select name="category" id="category" required>
+                        <option value="" disabled selected>-- SELECT A CATEGORY --</option>
+                        <option value="1">Basic</option>
+                        <option value="2">Affiliate</option>
+                        <option value="3">Associate</option>
+                        <option value="4">Fellow</option>
+                    </select>
+                </div>
+                <div class="form-input">
+                    <input type="submit" value="CREATE" name="submit-create-member">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}
