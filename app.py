@@ -138,7 +138,7 @@ def create_contribution():
     site['errors'].append('Invalid file type.')
     return render_template('create_contribution.html', now=now, site=site)
 
-@app.route("/markaspaid/<email>")
+@app.route("/markaspaid/<email>", methods=['GET', 'POST'])
 def mark_as_paid(email):
     site["errors"].append(f"That funtionality will be added soon")
     return render_template('index.html', now=now, site=site)
