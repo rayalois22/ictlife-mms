@@ -1,6 +1,7 @@
-# README for ictlife-mms
+# ictlife-mms
 
-This application is hosted on Heroku and can be accessed using the url https://ictlife-mms.herokuapp.com/
+This application is hosted on <a href="https://heroku.com">Heroku</a> and can be accessed using the url: https://ictlife-mms.herokuapp.com/
+The code for this application is available on <a href="https://github.com/rayalois22/ictlife-mms">Github</a>
 
 In order to build and run it on a different envireonment, you will need the following:
     1. Python-3.x
@@ -34,9 +35,7 @@ a virtual environment and build the application.
 9. Run database migrations
     <kbd>python manage.py db upgrade</kbd>
 10. Find <em>app.py</em> in the project root folder and make sure to uncomment the lines below if they are commented.
-    <code>
-        # os.environ['DATABASE_URL'] = "postgresql:///mms"
-        # os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
-    </code>
+    <kbd>os.environ['DATABASE_URL'] = "postgresql:///mms"</kbd>
+    <kbd>os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"</kbd>
 11. Run the application
     <kbd>flask run</kbd>
