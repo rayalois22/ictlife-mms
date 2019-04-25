@@ -31,7 +31,7 @@
                                 <td>{{ r.amount }}</td>
                                 <td>
                                     {% if not r.paid %}
-                                        <form action="/markaspaid/{{ r.email }}" method="post">
+                                        <form action="/markaspaid/{{ r.email }}" method="get">
                                             <input type="submit" value="Mark as Paid" name="paid-{{ r.email }}">
                                         </form>
                                     {% endif %}
