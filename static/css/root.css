@@ -193,6 +193,15 @@ table {
     font-size: 0.8em;
 }
 
+.records .title {
+    font-size: 1.4em;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 2px solid #333;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
 .actions {
     list-style-type: none;
     display: flex;
@@ -201,4 +210,11 @@ table {
 
 .actions li {
     margin: 0px 7px;
+}
+
+.links {
+    text-align: right;
+    padding: 10px 20px;
+    font-weight: bolder;
+    list-style-type: none;
 }

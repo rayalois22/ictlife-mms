@@ -11,8 +11,8 @@ from datetime import datetime
 os.environ['FLASK_APP'] = "app.py"
 
 # UNCOMMENT 2 LINES BELOW ON LOCALHOST
-# os.environ['DATABASE_URL'] = "postgresql:///mms"
-# os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
+os.environ['DATABASE_URL'] = "postgresql:///mms"
+os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['csv'])
@@ -167,7 +167,8 @@ def mark_as_paid(email_):
         site["errors"].append(f"Success. {valid_contribution.email} marked as paid.")
     except Exception as e:
         site["errors"].append(f"Failed. {str(e)}")
-    return render_template('index.html', now=now, site=site)
+    valid_contributions = get_valid_contributions()
+    return render_template('index.html', now=now, site=site, records=valid_contributions)
 
 @app.route('/upload/csv', methods=['GET', 'POST'])
 def upload_file():

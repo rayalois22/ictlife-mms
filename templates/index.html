@@ -4,16 +4,35 @@
     {% block head %}
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
         <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+        <script>
+            function delConfirm() {
+                var result = confirm("The record will be permanently deleted. Are you sure you want to delete?");
+                if (result==true) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        </script>
     {% endblock head %}
 {% endif %}
 
 {% block content %}
     <ul class="links">
+        <li><a href="/">View Valid Records</a></li>
         <li><a href="/invalid-records">View Invalid Records</a></li>
     </ul>
     <div class="records">
+        {% if records|length < 1 and invalid_records|length < 1 %}
+            {% if records|length < 1 %}
+                <div class="title">No valid records found</div>
+            {% endif %}
+            {% if invalid_records|length < 1 %}
+                <div class="title">No invalid records found</div>
+            {% endif %}
+        {% endif %}  
         {% if records|length > 0 %}
-            <div class="title">Records</div>
+            <div class="title">Valid Records</div>
             <div class="body">
                 <table id="records" style="width: 100%;">
                     <thead>
@@ -44,9 +63,7 @@
                     </tbody>
                 </table>
             </div>
-        {% else records|length < 1 and invalid_records|length < 1 %}
-            <div class="title">No valid records found</div>
-        {% endif %}    
+        {% endif %} 
         
         {% if invalid_records|length > 0 %}
             <div class="title">Invalid Records</div>
@@ -71,7 +88,7 @@
                                 <td>
                                     <ul class="actions">
                                         <li><a href="/invalid-record/edit/{{ r.id }}">Edit</a></li>
-                                        <li><a href="/invalid-record/del/{{ r.id }}">Delete</a></li>
+                                        <li><a href="/invalid-record/del/{{ r.id }}" onclick="return delConfirm()">Delete</a></li>
                                     </ul>
                                 </td>
                             </tr>
@@ -79,8 +96,6 @@
                     </tbody>
                 </table>
             </div>
-        {% else if invalid_records|length < 1 and records|length < 1 %}
-            <div class="title">Hooray! No invalid records found</div>
-        {% endif %}    
+        {% endif %} 
     </div> 
 {% endblock %}
