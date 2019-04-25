@@ -138,13 +138,16 @@ def create_contribution():
     site['errors'].append('Invalid file type.')
     return render_template('create_contribution.html', now=now, site=site)
 
-@app.route("/markaspaid/<email_>", methods=['GET', 'POST'])
+@app.route("/markaspaid/<email_>")
 def mark_as_paid(email_):
-    valid_contribution = ValidContribution.query.filter_by(email=email_).first()
-    valid_contribution.paid = True
-    db.session.add(valid_contribution)
-    db.commit()
-    site["errors"].append(f"Success. {valid_contribution.email} marked as paid.")
+    try:
+        valid_contribution = ValidContribution.query.filter_by(email=email_).first()
+        valid_contribution.paid = True
+        db.session.add(valid_contribution)
+        db.commit()
+        site["errors"].append(f"Success. {valid_contribution.email} marked as paid.")
+    except Exception as e:
+        site["errors"].append(f"Failed. {str(e)}")
     return render_template('index.html', now=now, site=site)
 
 @app.route('/upload/csv', methods=['GET', 'POST'])
