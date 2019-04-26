@@ -91,7 +91,6 @@ def create_contribution():
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # return redirect(url_for('uploaded_file', filename=filename))
         try:
             with open(os.path.join(app.config['UPLOAD_FOLDER'], filename)) as csv_file:
                 csv_reader = csv.reader(csv_file, delimiter=',')
@@ -111,7 +110,7 @@ def create_contribution():
                                 try: 
                                     amount_numeric = float(amount)
                                     category = get_category(member.category)
-                                    site['errors'].append(f"Category: {category}")
+                                    # site['errors'].append(f"Category: {category}")
                                     if amount_numeric != float(category.amount):
                                         raise ValueError
                                     contribution = ValidContribution(year, month, member.email, amount_numeric)
@@ -145,15 +144,53 @@ def invalid_records():
     invalid_contributions = get_invalid_contributions()
     return render_template('index.html', now=now, site=site, invalid_records=invalid_contributions)
 
+@app.route("/invalid-record/edited", methods=['GET','POST'])
+def invalid_record_edit():
+    id = request.form.get('id')
+    email = request.form.get('email')
+    amount = request.form.get('amount')
+    year = request.form.get('year')
+    month = request.form.get('month')
+
+    invalid = True
+    if check_email(email):
+        member = get_member_by_email(email)
+        if member:
+            try: 
+                amount_numeric = float(amount)
+                category = get_category(member.category)
+                if amount_numeric != float(category.amount):
+                    site['errors'].append(f"Expected amount for category {category.name} is {category.amount}")
+                    raise Exception
+                contribution = ValidContribution(year, month, member.email, amount_numeric)
+                db.session.add(contribution)
+                Contribution.query.filter_by(id=id).delete()
+                db.session.commit()
+                invalid = False
+                site["errors"].append(f"Success. The record has been moved to valid records.")
+            except Exception as e:
+                site['errors'].append(str(e))
+    if invalid:
+        Contribution.query.filter_by(id=id).delete()
+        contribution = Contribution(year, month, email, amount)
+        db.session.add(contribution)
+        db.session.commit()
+        site["errors"].append(f"The new values have been saved. However, they are still not valid and therefore not moved to valid records.")
+    valid_records = get_valid_contributions()
+    return render_template("index.html", now=now, site=site, records=valid_records)
+
 @app.route("/invalid-record/edit/<id_>")
 def edit_invalid_contribution(id_):
-    site["errors"].append(f"This functionality will be availble soon")
-    invalid_records = get_invalid_contributions()
-    return render_template('index.html', now=now, site=site, invalid_records=invalid_records)
+    contribution = Contribution.query.filter_by(id=id_).first()
+    years = ['2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007']
+    months = ['January', 'February', 'March', 'April', 'May', 'June', 'July','August', 'September', 'October', 'November', 'December']  
+    return render_template('index.html', now=now, site=site, edited_record=contribution, years=years, months=months)
 
 @app.route("/invalid-record/del/<id_>")
 def delete_invalid_contribution(id_):
-    site["errors"].append(f"This functionality will be availble soon")
+    Contribution.query.filter_by(id=id_).delete()
+    db.session.commit()
+    site["errors"].append(f"Success. Invalid record has been deleted.")
     invalid_records = get_invalid_contributions()
     return render_template('index.html', now=now, site=site, invalid_records=invalid_records)
 

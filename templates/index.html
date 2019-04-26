@@ -23,7 +23,7 @@
         <li><a href="/invalid-records">View Invalid Records</a></li>
     </ul>
     <div class="records">
-        {% if records|length < 1 and invalid_records|length < 1 %}
+        {% if records|length < 1 and invalid_records|length < 1 and not edited_record.id %}
             {% if records|length < 1 %}
                 <div class="title">No valid records found</div>
             {% endif %}
@@ -98,4 +98,51 @@
             </div>
         {% endif %} 
     </div> 
+
+    <div class="edited_record">
+        {% if edited_record %}
+            <div class="form-wrapper">
+                <h3 class="title">Edit Invalid Record</h3>
+                <form action="/invalid-record/edited" class="form" method="POST">
+                    <div class="form-input">
+                        <label for="year">Year:</label>
+                        <select name="year" id="year" required>
+                            {% for r in years %}
+                                {% if r == edited_record.year %}
+                                    <option value="{{ r }}" selected>{{ r }}</option>
+                                {% else %}
+                                    <option value="{{ r }}">{{ r }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-input">
+                        <label for="month">Month:</label>
+                        <select name="month" id="month" required>
+                            <option value="" disabled selected>--SELECT A MONTH--</option>
+                            {% for r in months %}
+                                {% if loop.index == edited_record.month %}
+                                    <option value="{{ loop.index }}" selected>{{ r }}</option>
+                                {% else %}
+                                    <option value="{{ loop.index }}">{{ r }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="form-input">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" value="{{ edited_record.email }}" required>
+                    </div>
+                    <div class="form-input">
+                        <label for="amount">Amount:</label>
+                        <input type="number" id="amount" name="amount" value="{{ edited_record.amount }}" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-input">
+                        <input type="submit" value="SUBMIT CHANGES" name="submit-edited-record">
+                    </div>
+                    <input type="hidden" name="id" value="{{ edited_record.id }}">
+                </form>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
