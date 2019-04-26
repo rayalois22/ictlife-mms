@@ -11,8 +11,8 @@ from datetime import datetime
 os.environ['FLASK_APP'] = "app.py"
 
 # UNCOMMENT 2 LINES BELOW ON LOCALHOST
-os.environ['DATABASE_URL'] = "postgresql:///mms"
-os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
+# os.environ['DATABASE_URL'] = "postgresql:///mms"
+# os.environ['APP_SETTINGS'] = "config.DevelopmentConfig"
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['csv'])
